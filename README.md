@@ -1,16 +1,15 @@
-### Hi there 👋
+# vCard - Personal portfolio
 
-<!--
-**chandansomani/chandansomani** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+## Run this website
 
-Here are some ideas to get you started:
+Hit **Run** up there, or just hit `Cmd + ENTER`!
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+You can customize it. Start from `index.html`.
+
+## Author & License
+
+This template has been developed by [@codewithsadee](https://www.twitter.com/codewithsadee). If you want to contact the author, you can reach out on [Twitter](https://www.twitter.com/codewithsadee). 
+
+Donations: [Patreon](https://patreon.com/codewithsadee).
+
+License: MIT (see LICENSE file).
