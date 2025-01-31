@@ -281,18 +281,24 @@ article.active {
 .has-scrollbar::-webkit-scrollbar {
   width: 5px;
   /* for vertical scrollbar */
-  height: 5px;
+  height: 10px;
   /* for horizontal scrollbar */
 }
 
 .has-scrollbar::-webkit-scrollbar-track {
-  background: var(--onyx);
+  background: var(--eerie-black-2);
   border-radius: 5px;
+}
+
+.has-scrollbar:hover::-webkit-scrollbar-track {
+  background: var(--onyx);
+  cursor: pointer;
 }
 
 .has-scrollbar::-webkit-scrollbar-thumb {
   background: var(--orange-yellow-crayola);
   border-radius: 5px;
+  cursor: pointer;
 }
 
 .has-scrollbar::-webkit-scrollbar-button {
@@ -343,7 +349,7 @@ main {
 
 .sidebar {
   margin-bottom: 15px;
-  max-height: 112px;
+  max-height: 132px;
   overflow: hidden;
   transition: var(--transition-2);
 }
@@ -1407,8 +1413,6 @@ textarea.form-input::-webkit-resizer {
 
 
 
-
-
 /**
  * responsive larger than 580px screen
  */
@@ -1483,7 +1487,7 @@ textarea.form-input::-webkit-resizer {
    */
 
   .sidebar {
-    max-height: 180px;
+    max-height: 240px;
     margin-bottom: 30px;
   }
 
@@ -1756,6 +1760,30 @@ textarea.form-input::-webkit-resizer {
 }
 
 
+
+@media print {
+  article{
+    width: 100% !important; 
+  }
+
+  .sidebar{
+    width: 100%;
+  }
+
+  .navbar {
+    position: absolute;
+    max-height: fit-content;
+    top: 60px;
+    left: auto;
+    right: 0;
+    width: max-content;
+    border-radius: 0 20px;
+    padding: 0 20px;
+    box-shadow: none;
+    margin-right: 11px;
+  }
+
+}
 
 
 

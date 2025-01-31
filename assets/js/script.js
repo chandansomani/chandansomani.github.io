@@ -157,3 +157,8 @@ for (let i = 0; i < navigationLinks.length; i++) {
 
   });
 }
+
+window.onbeforeprint = function () {
+  const sidebar = document.querySelector("[data-sidebar]");
+  sidebar.classList.add("active");
+}
