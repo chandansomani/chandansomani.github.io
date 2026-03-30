@@ -9,7 +9,7 @@ type Props = {
 
 const WordTypewriterReadMore: React.FC<Props> = ({
   text,
-  previewLength = 80,
+  //previewLength = 80,
   speed = 120,
   className = ""
 }) => {
@@ -18,7 +18,7 @@ const WordTypewriterReadMore: React.FC<Props> = ({
   const [wordIndex, setWordIndex] = useState(0);
 
   const words = text.split(" ");
-  const previewText = text.slice(0, previewLength) + "...";
+  //const previewText = text.slice(0, previewLength) + "...";
 
   useEffect(() => {
     if (!expanded) return;

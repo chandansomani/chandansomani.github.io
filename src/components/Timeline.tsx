@@ -3,7 +3,43 @@ import { book, globe } from "ionicons/icons";
 import WordTypewriterReadMore from "./WordTypewriterReadMore";
 import { gitPullRequest, trophy } from "ionicons/icons";
 
-const iconMap = {
+
+type IconKey = "gitPullRequest" | "trophy" | "globe" | "book";
+
+type SectionItem = {
+  title: string;
+  link?: string;
+  skills?: string;
+  description?: string;
+  image?: string;
+};
+
+type Section = {
+  icon: IconKey;
+  title: string;
+  items: SectionItem[];
+};
+
+type TimelineEvent = {
+  title: string;
+  duration?: string;
+  link?: string;
+  description?: string;
+  skills?: string;
+  image?: string;
+  longDesc?: string;
+  sections?: Section[];
+};
+
+type TimelineProps = {
+  timelineHeading: string;
+  timelineEvents: TimelineEvent[];
+  headIcon: IconKey;
+};
+
+
+
+const iconMap: Record<IconKey, string> = {
   gitPullRequest,
   trophy,
   globe,
@@ -11,7 +47,11 @@ const iconMap = {
 };
 
 
-const Timeline = ({timelineHeading, timelineEvents, headIcon}) => {
+const Timeline: React.FC<TimelineProps> = ({
+  timelineHeading,
+  timelineEvents,
+  headIcon
+}) => {
   return (
     <section className="timeline">
       <div className="title-wrapper">
@@ -33,7 +73,7 @@ const Timeline = ({timelineHeading, timelineEvents, headIcon}) => {
 export default Timeline;
 
 
-const TimelineItem = ({ item }) => {
+const TimelineItem: React.FC<{ item: TimelineEvent }> = ({ item }) => {
   return (
     <li className="timeline-item">
       <h4 className="h4 timeline-item-title">{item.title}</h4>
@@ -67,7 +107,7 @@ const TimelineItem = ({ item }) => {
 
 
       {item.sections &&
-        item.sections.map((section: unknown, idx: Key | null | undefined) => (
+        item.sections.map((section: Section, idx: number) => (
           <SectionBlock key={idx} section={section} />
         ))}
     </li>
@@ -75,7 +115,7 @@ const TimelineItem = ({ item }) => {
 };
 
 
-const SectionBlock = ({ section }) => {
+const SectionBlock: React.FC<{ section: Section }> = ({ section }) => {
   return (
     <section className="timeline">
       <div className="title-wrapper">
