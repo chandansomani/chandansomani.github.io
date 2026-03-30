@@ -14,7 +14,6 @@ export const Resume: React.FC<DefaultProps> = ({ visible }) => {
         </header>
 
         <Timeline  timelineHeading="Experience" timelineEvents={experienceData} headIcon={"globe"}/>
-
         <Timeline  timelineHeading="Certification" timelineEvents={certificationData} headIcon={"trophy"}/> 
         <Timeline  timelineHeading="Projects" timelineEvents={projectsData} headIcon={"gitPullRequest"}/>
         <Timeline  timelineHeading="Education" timelineEvents={educationData} headIcon={"book"}/>

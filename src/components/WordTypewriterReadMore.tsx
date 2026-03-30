@@ -4,7 +4,7 @@ type Props = {
   text: string;
   previewLength?: number;
   speed?: number; // delay per word (ms)
-  className: string;
+  className?: string;
 };
 
 const WordTypewriterReadMore: React.FC<Props> = ({
