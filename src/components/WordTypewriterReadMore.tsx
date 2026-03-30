@@ -4,12 +4,14 @@ type Props = {
   text: string;
   previewLength?: number;
   speed?: number; // delay per word (ms)
+  className: string;
 };
 
 const WordTypewriterReadMore: React.FC<Props> = ({
   text,
   previewLength = 80,
   speed = 120,
+  className = ""
 }) => {
   const [expanded, setExpanded] = useState(false);
   const [displayedText, setDisplayedText] = useState("");
@@ -53,12 +55,12 @@ const WordTypewriterReadMore: React.FC<Props> = ({
           onClick={handleExpand}
           className="cursor-pointer text-gray-600 hover:text-black"
         >
-          {previewText}{" "}
+          {/* {previewText}{" "} */}
           <span className="text-blue-500 font-medium">Read more</span>
         </p>
       ) : (
         <div>
-          {displayedText}
+          <span className={className}> {displayedText} </span>
           {/* <p className="text-gray-800 leading-relaxed"> {displayedText} </p> */}
 
           {wordIndex < words.length - 20 && (
