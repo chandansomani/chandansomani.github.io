@@ -1,12 +1,5 @@
 [
   {
-    "slug": "post-2025-11-21-new-hello-world",
-    "title": "Hello world — My first post",
-    "date": "2025-11-21",
-    "excerpt": "Quick intro to the blog...",
-    "banner": "/assets/images/Azure_DBA_Certificate.png"
-  },
-  {
     "slug": "another-post",
     "title": "Another interesting post",
     "date": "2025-10-01",
