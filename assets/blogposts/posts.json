@@ -12,5 +12,12 @@
     "date": "2025-10-01",
     "excerpt": "A short excerpt about this post...",
     "banner": "/assets/images/Jira Certification.png"
+  },
+  {
+    "slug": "mtc-freight-management-system",
+    "title": "MTC Freight Management System",
+    "date": "2024-02-11",
+    "excerpt": "A short excerpt about this post...",
+    "banner": "/assets/images/MTC-Freight-Management-System-11-02-2024_02_28_AM.png"
   }
 ]
