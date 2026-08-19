@@ -48,6 +48,7 @@
   --onyx: hsl(240, 1%, 17%);
   --eerie-black-1: hsl(240, 2%, 13%);
   --eerie-black-2: hsl(240, 2%, 12%);
+  --eerie-black-3: hsl(240, 2%, 18%);
   --smoky-black: hsl(0, 0%, 7%);
   --white-1: hsl(0, 0%, 100%);
   --white-2: hsl(0, 0%, 98%);
@@ -802,6 +803,18 @@ main {
   font-size: var(--fs-6);
   font-weight: var(--fw-300);
   line-height: 1.6;
+}
+
+.modal-content ul {
+  /* border: 1px solid var(--jet); */
+  background: var(--eerie-black-3);
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.modal-content li {
+  color: var(--light-gray);
+  list-style: disc;
 }
 
 
