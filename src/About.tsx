@@ -109,29 +109,29 @@ const SERVICES_DATA: ServiceItem[] = [
     },
 ];
 
-const TESTIMONIALS_DATA: TestimonialItem[] = [
-    {
-        id: "1",
-        name: "Dipesh Malani",
-        avatarSrc: "./assets/images/DipeshM F Apple Memoji Avatar.png",
-        avatarAlt: "Dipesh Malani",
-        text: "",
-    },
-    {
-        id: "2",
-        name: "Jyoti Sisodiya",
-        avatarSrc: "./assets/images/avatar-2.png",
-        avatarAlt: "Jyoti Sisodiya",
-        text: "",
-    },
-    {
-        id: "3",
-        name: "Sandeep Patil",
-        avatarSrc: "./assets/images/avatar-1.png",
-        avatarAlt: "Sandeep Patil",
-        text: "",
-    },
-];
+// const TESTIMONIALS_DATA: TestimonialItem[] = [
+//     {
+//         id: "1",
+//         name: "Dipesh Malani",
+//         avatarSrc: "./assets/images/DipeshM F Apple Memoji Avatar.png",
+//         avatarAlt: "Dipesh Malani",
+//         text: "",
+//     },
+//     {
+//         id: "2",
+//         name: "Jyoti Sisodiya",
+//         avatarSrc: "./assets/images/avatar-2.png",
+//         avatarAlt: "Jyoti Sisodiya",
+//         text: "",
+//     },
+//     {
+//         id: "3",
+//         name: "Sandeep Patil",
+//         avatarSrc: "./assets/images/avatar-1.png",
+//         avatarAlt: "Sandeep Patil",
+//         text: "",
+//     },
+// ];
 
 const CLIENTS_DATA: ClientItem[] = [
     { id: "1", logoSrc: "./assets/images/New-Vision-2023.png", altText: "client logo" },
