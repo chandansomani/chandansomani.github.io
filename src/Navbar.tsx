@@ -4,7 +4,7 @@ import { DefaultProps } from "./DefaultProps";
 
 export const Navbar: React.FC<DefaultProps> = ({ visible, activateTab }) => {
 
-    const tabs = ['Resume', 'About', 'Portfolio', 'Blog', 'Contact'];
+    const tabs = ['Resume', 'About', 'Blog'];
 
     const renderTab = (tab: string) => (
         <li className="navbar-item" key={tab}>
