@@ -1,4 +1,3 @@
-import { link } from "ionicons/icons";
 
 export const experienceData_Nested = [
   {
