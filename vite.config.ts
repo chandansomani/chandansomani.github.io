@@ -15,4 +15,29 @@ export default defineConfig({
       ]
     })
   ],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          // React core dependencies
+          vendor: ["react", "react-dom"],
+          // Ionic UI framework components
+          ionic: ["@ionic/react", "ionicons"],
+          // Code highlighting library (heavy dependency)
+          highlight: ["highlight.js"],
+          // Markdown parser and rehype/remark plugins
+          markdown: [
+            "react-markdown",
+            "remark-gfm",
+            "rehype-raw",
+            "rehype-sanitize",
+            "rehype-highlight",
+            "gray-matter",
+          ],
+          // Image viewer component
+          viewer: ["react-viewer"],
+        },
+      },
+    },
+  },
 })
