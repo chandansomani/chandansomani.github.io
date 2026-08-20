@@ -2222,3 +2222,12 @@ textarea.form-input::-webkit-resizer {
   }
 
 }
+
+
+/*-----------------------------------*\
+  #React-Viewer-Customization
+\*-----------------------------------*/
+
+.react-viewer-mask {
+  background-color: rgba(0, 0, 0, 0.85) !important; /* Adjust opacity react-viewer backdrop */
+}

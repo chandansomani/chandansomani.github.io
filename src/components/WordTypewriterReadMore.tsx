@@ -61,15 +61,13 @@ const WordTypewriterReadMore: React.FC<Props> = ({
       ) : (
         <div>
           <span className={className}> {displayedText} </span>
-          {/* <p className="text-gray-800 leading-relaxed"> {displayedText} </p> */}
-
           {wordIndex < words.length - 20 && (
-            <button
+            <span
               onClick={handleSkip}
               className="mt-2 text-sm text-blue-500 hover:underline"
             >
               Skip
-            </button>
+            </span>
           )}
         </div>
       )}
