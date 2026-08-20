@@ -173,6 +173,27 @@ body {
 /*-----------------------------------*\
   #REUSED STYLE
 \*-----------------------------------*/
+.externallink { 
+  color: var(--white-2); 
+  text-decoration: none;
+}
+
+.externallink::after { 
+  content: ""; 
+  display: inline-block; 
+  width: 14px; 
+  height: 14px; 
+  margin-left: 4px;
+  vertical-align: middle;
+  background-color: currentColor; /* Inherits text color automatically */
+  -webkit-mask: url('../images/alink_arrow.png') no-repeat center / contain;
+  mask: url('../images/alink_arrow.png') no-repeat center / contain;
+}
+
+/* Changing text color automatically changes the arrow color too */
+.externallink:hover { 
+  color: var(--orange-yellow-crayola); 
+}
 
 .sidebar,
 article {

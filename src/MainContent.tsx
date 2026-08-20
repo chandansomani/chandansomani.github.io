@@ -9,7 +9,7 @@ import { Resume } from "./Resume";
 
 export const MainContent: React.FC<DefaultProps> = ({ children }) => {
 
-    const [activeTab, setActiveTab] = useState('About');
+    const [activeTab, setActiveTab] = useState('Resume');
 
     const renderActiveTab = () => {
         switch (activeTab) {
