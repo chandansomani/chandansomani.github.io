@@ -1,7 +1,3 @@
-(You can use frontmatter parsers if you prefer reading frontmatter from the `.md` directly — but for a simple static solution a `posts.json` index is easiest.)
-
----
-
 # Notes, options & trade-offs
 
 - **Why `posts.json`?** Static hosts (GitHub Pages, Netlify) do not allow directory listing via `fetch`. A static `posts.json` is reliable for listing posts. If you control a server you could expose an API listing posts dynamically instead.
