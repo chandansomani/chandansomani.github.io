@@ -11,6 +11,10 @@ export default defineConfig({
         {
           src: 'src/assets/images', // Source folder
           dest: 'assets' // Destination folder in dist
+        },
+        {
+          src: 'src/assets/blogposts',
+          dest: 'assets'
         }
       ]
     })

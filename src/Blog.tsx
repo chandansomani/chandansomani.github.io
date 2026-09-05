@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
@@ -9,6 +9,12 @@ import "highlight.js/styles/github.css";
 import { useBlogPosts, PostMeta } from "./hooks/useBlogData";
 import { parseFrontmatter } from "./hooks/parseMarkdown";
 import "./pages/Blog/Blog.css";
+
+// Extended interface if category/tags are included in post metadata
+interface ExtendedPostMeta extends PostMeta {
+  category?: string;
+  tags?: string[];
+}
 
 const ArrowLeft = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
@@ -22,6 +28,12 @@ const CalendarIcon = () => (
   </svg>
 );
 
+const SearchIcon = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
+  </svg>
+);
+
 export const Blog: React.FC<{ visible?: string }> = ({ visible }) => {
   const isActive = visible === "Blog";
   const { posts, loading: loadingIndex, error: indexError } = useBlogPosts();
@@ -31,6 +43,39 @@ export const Blog: React.FC<{ visible?: string }> = ({ visible }) => {
   const [selectedMeta, setSelectedMeta] = useState<PostMeta | null>(null);
   const [loadingPost, setLoadingPost] = useState(false);
   const [postError, setPostError] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState<string>("All");
+
+  // Dynamically extract unique categories/tags from post list
+  const categories = useMemo(() => {
+    if (!posts) return ["All"];
+    const set = new Set<string>();
+    posts.forEach((p: ExtendedPostMeta) => {
+      if (p.category) set.add(p.category);
+      if (p.tags) p.tags.forEach((tag) => set.add(tag));
+    });
+    return ["All", ...Array.from(set)];
+  }, [posts]);
+
+  // Combined search and category filter
+  const filteredPosts = useMemo(() => {
+    if (!posts) return [];
+    return posts.filter((p: ExtendedPostMeta) => {
+      const matchesCategory =
+        selectedCategory === "All" ||
+        p.category === selectedCategory ||
+        p.tags?.includes(selectedCategory);
+
+      const query = searchQuery.toLowerCase().trim();
+      const matchesSearch =
+        !query ||
+        (p.title && p.title.toLowerCase().includes(query)) ||
+        (p.excerpt && p.excerpt.toLowerCase().includes(query)) ||
+        p.slug.toLowerCase().includes(query);
+
+      return matchesCategory && matchesSearch;
+    });
+  }, [posts, searchQuery, selectedCategory]);
 
   useEffect(() => {
     if (!selectedSlug) {
@@ -81,115 +126,158 @@ export const Blog: React.FC<{ visible?: string }> = ({ visible }) => {
         <h2 className="h2 article-title">Blog</h2>
       </header>
 
-      <section className="blog-posts">
-        <div className={`blog-layout${selectedSlug ? " blog-layout--post-open" : " blog-layout--no-post"}`}>
-          {/* Sidebar */}
-          <aside className="blog-sidebar">
-            <p className="blog-sidebar__heading">All posts</p>
+      <section className="blog-container">
+        {/* Top Header Controls: Heading, Category Pills, and Search */}
+        <section className="blog-strip-wrapper">
+          <div className="blog-strip__header">
+            <p className="blog-strip__heading">All posts</p>
 
-            {loadingIndex && <LoadingSpinner label="Loading posts…" />}
-            {indexError && <div className="blog-error">{indexError}</div>}
+            <div className="blog-controls-right">
+              {/* Category Pills */}
+              {categories.length > 1 && (
+                <div className="blog-category-pills" role="tablist">
+                  {categories.map((cat) => (
+                    <button
+                      key={cat}
+                      className={`blog-pill${selectedCategory === cat ? " blog-pill--active" : ""}`}
+                      onClick={() => setSelectedCategory(cat)}
+                      role="tab"
+                      aria-selected={selectedCategory === cat}
+                    >
+                      {cat}
+                    </button>
+                  ))}
+                </div>
+              )}
 
-            {posts && posts.length === 0 && !loadingIndex && !indexError && (
-              <p style={{ fontSize: 13, color: "var(--light-gray, #8a9ab0)" }}>No posts yet.</p>
-            )}
-
-            <ul className="blog-posts-list" role="list">
-              {posts?.map((p) => (
-                <PostCard
-                  key={p.slug}
-                  post={p}
-                  isActive={selectedSlug === p.slug}
-                  onClick={() => setSelectedSlug(p.slug)}
+              {/* Inline Search Box */}
+              <div className="blog-search-box">
+                <SearchIcon />
+                <input
+                  type="text"
+                  placeholder="Search..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  aria-label="Search posts"
                 />
-              ))}
-            </ul>
-          </aside>
-
-          {/* Reader Area */}
-          <section className="blog-reader" aria-live="polite" aria-atomic="true">
-            {!selectedSlug && <EmptyReader />}
-            {selectedSlug && loadingPost && <LoadingSpinner label="Loading post…" />}
-            {postError && <div className="blog-error">{postError}</div>}
-
-            {selectedSlug && selectedMd && !loadingPost && (
-              <div className="blog-reader-post">
-                <button
-                  className="blog-reader-back"
-                  onClick={() => setSelectedSlug(null)}
-                  aria-label="Back to post list"
-                >
-                  <ArrowLeft />
-                  All posts
-                </button>
-
-                {selectedMeta?.banner && (
-                  <img className="blog-reader-hero" src={selectedMeta.banner} alt={resolvedTitle} />
-                )}
-
-                <div className="blog-reader-header">
-                  {resolvedDate && (
-                    <div className="blog-reader-date">
-                      <CalendarIcon />
-                      <time dateTime={resolvedDate}>{resolvedDate}</time>
-                    </div>
-                  )}
-                  <h1 className="blog-reader-title">{resolvedTitle}</h1>
-                  <hr className="blog-reader-divider" />
-                </div>
-
-                <div className="blog-reader-prose">
-                  <ReactMarkdown
-                    remarkPlugins={[remarkGfm]}
-                    rehypePlugins={[rehypeRaw, rehypeSanitize, rehypeHighlight]}
+                {searchQuery && (
+                  <button
+                    className="blog-search-clear"
+                    onClick={() => setSearchQuery("")}
+                    aria-label="Clear search"
                   >
-                    {selectedMd}
-                  </ReactMarkdown>
-                </div>
+                    ×
+                  </button>
+                )}
               </div>
-            )}
-          </section>
-        </div>
+            </div>
+          </div>
+
+          {loadingIndex && <LoadingSpinner label="Loading posts…" />}
+          {indexError && <div className="blog-error">{indexError}</div>}
+
+          {filteredPosts.length === 0 && !loadingIndex && !indexError && (
+            <p style={{ fontSize: 13, color: "var(--light-gray, #8a9ab0)", padding: "12px 0" }}>
+              No posts found matching your criteria.
+            </p>
+          )}
+
+          <div className="blog-masonry-strip" role="list">
+            {filteredPosts.map((p) => (
+              <PostCard
+                key={p.slug}
+                post={p}
+                isActive={selectedSlug === p.slug}
+                onClick={() => setSelectedSlug(p.slug)}
+              />
+            ))}
+          </div>
+        </section>
+
+        {/* Reader Area Below */}
+        <section className="blog-reader" aria-live="polite" aria-atomic="true">
+          {!selectedSlug && <EmptyReader />}
+          {selectedSlug && loadingPost && <LoadingSpinner label="Loading post…" />}
+          {postError && <div className="blog-error">{postError}</div>}
+
+          {selectedSlug && selectedMd && !loadingPost && (
+            <div className="blog-reader-post">
+              <button
+                className="blog-reader-back"
+                onClick={() => setSelectedSlug(null)}
+                aria-label="Close preview"
+              >
+                <ArrowLeft />
+                Close preview
+              </button>
+
+              {selectedMeta?.banner && (
+                <img className="blog-reader-hero" src={selectedMeta.banner} alt={resolvedTitle} />
+              )}
+
+              <div className="blog-reader-header">
+                {resolvedDate && (
+                  <div className="blog-reader-date">
+                    <CalendarIcon />
+                    <time dateTime={resolvedDate}>{resolvedDate}</time>
+                  </div>
+                )}
+                <h1 className="blog-reader-title">{resolvedTitle}</h1>
+                <hr className="blog-reader-divider" />
+              </div>
+
+              <div className="blog-reader-prose">
+                <ReactMarkdown
+                  remarkPlugins={[remarkGfm]}
+                  rehypePlugins={[rehypeRaw, rehypeSanitize, rehypeHighlight]}
+                >
+                  {selectedMd}
+                </ReactMarkdown>
+              </div>
+            </div>
+          )}
+        </section>
       </section>
     </article>
   );
 };
 
 /* Sub-components */
-function PostCard({ post, isActive, onClick }: { post: PostMeta; isActive: boolean; onClick: () => void }) {
+function PostCard({ post, isActive, onClick }: { post: ExtendedPostMeta; isActive: boolean; onClick: () => void }) {
   return (
-    <li>
-      <a
-        href={`#${post.slug}`}
-        onClick={(e) => {
-          e.preventDefault();
-          onClick();
-        }}
-        className={`blog-card${isActive ? " blog-card--active" : ""}`}
-        aria-current={isActive ? "page" : undefined}
-      >
-        <figure className="blog-card__thumb">
-          {post.banner ? (
-            <img src={post.banner} alt={post.title ?? post.slug} loading="lazy" />
-          ) : (
-            <div className="blog-card__thumb-placeholder" aria-hidden="true">
-              <span>{(post.title ?? post.slug).charAt(0).toUpperCase()}</span>
-            </div>
-          )}
-        </figure>
+    <a
+      href={`#${post.slug}`}
+      onClick={(e) => {
+        e.preventDefault();
+        onClick();
+      }}
+      className={`blog-card${isActive ? " blog-card--active" : ""}`}
+      aria-current={isActive ? "page" : undefined}
+    >
+      <figure className="blog-card__thumb">
+        {post.banner ? (
+          <img src={post.banner} alt={post.title ?? post.slug} loading="lazy" />
+        ) : (
+          <div className="blog-card__thumb-placeholder" aria-hidden="true">
+            <span>{(post.title ?? post.slug).charAt(0).toUpperCase()}</span>
+          </div>
+        )}
+      </figure>
 
-        <div className="blog-card__body">
-          {post.date && (
-            <div className="blog-card__date">
-              <CalendarIcon />
-              <time dateTime={post.date}>{post.date}</time>
-            </div>
-          )}
-          <h3 className="blog-card__title">{post.title ?? post.slug}</h3>
-          {post.excerpt && <p className="blog-card__excerpt">{post.excerpt}</p>}
-        </div>
-      </a>
-    </li>
+      <div className="blog-card__body">
+        {post.category && (
+          <span className="blog-card__badge">{post.category}</span>
+        )}
+        {post.date && (
+          <div className="blog-card__date">
+            <CalendarIcon />
+            <time dateTime={post.date}>{post.date}</time>
+          </div>
+        )}
+        <h3 className="blog-card__title">{post.title ?? post.slug}</h3>
+        {post.excerpt && <p className="blog-card__excerpt">{post.excerpt}</p>}
+      </div>
+    </a>
   );
 }
 
@@ -201,7 +289,7 @@ function EmptyReader() {
           <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" /><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
         </svg>
       </div>
-      <p>Select a post to start reading</p>
+      <p>Select a post above to start reading</p>
     </div>
   );
 }

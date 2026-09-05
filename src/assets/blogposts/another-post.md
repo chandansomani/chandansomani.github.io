@@ -1,9 +1,8 @@
-
 (You can use frontmatter parsers if you prefer reading frontmatter from the `.md` directly — but for a simple static solution a `posts.json` index is easiest.)
 
 ---
 
-# 5) Notes, options & trade-offs
+# Notes, options & trade-offs
 
 - **Why `posts.json`?** Static hosts (GitHub Pages, Netlify) do not allow directory listing via `fetch`. A static `posts.json` is reliable for listing posts. If you control a server you could expose an API listing posts dynamically instead.
 - **SEO / pre-rendering:** Client-side rendering works fine but for best SEO and speed you may pre-render `.md` to HTML during build (e.g., use a Node script with `remark` to produce HTML files at build time). If you prefer a fully static site generator approach, use Astro/Next/11ty/etc.
@@ -17,7 +16,8 @@
 
 ---
 
-# 6) Want me to do one of these next?
+# Want me to do one of these next?
+
 Pick one and I’ll produce exact files you can copy:
 
 - A. Create the minimal Vite + React + TS app structure and the two components above (I’ll provide the exact files and `package.json`).
