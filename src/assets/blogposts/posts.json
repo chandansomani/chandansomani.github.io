@@ -9,12 +9,21 @@
     "category": "tech"
   },
   {
-    "slug": "another-post",
+    "slug": "2026-09-05-post",
     "title": "Another interesting post",
     "date": "2025-10-01",
     "excerpt": "A short excerpt about this post...",
-    "banner": "/posts/images/blog-2.jpg",
+    "banner": "/assets/images/blog-2.jpg",
     "featured": false,
     "category": "design"
+  },
+  {
+    "slug": "ghpages-decoupled",
+    "title": "Why GitHub Pages Gave Me a 404: The Hidden Jekyll Frontmatter Trap",
+    "date": "2026-09-05",
+    "excerpt": "Learning more about how github pages interpert frontmatter which causes processing of frontmatter md files",
+    "banner": "/assets/images/blog-3.jpg",
+    "featured": false,
+    "category": "Web Development"
   }
 ]
