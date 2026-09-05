@@ -1,8 +1,8 @@
----
-title: "Why GitHub Pages Gave Me a 404: The Hidden Jekyll Frontmatter Trap"
-date: "2026-09-05"
-category: "Web Development"
-excerpt: "How Jekyll's automatic build step on GitHub Pages breaks raw Markdown asset fetches when frontmatter and dated filenames are used."
+
+# Title: "Why GitHub Pages Gave Me a 404: The Hidden Jekyll Frontmatter Trap"
+## Date: "2026-09-05"
+## Category: "Web Development"
+## Excerpt: "How Jekyll's automatic build step on GitHub Pages breaks raw Markdown asset fetches when frontmatter and dated filenames are used."
 ---
 
 When building modern static sites or Single Page Applications (SPAs)—like React or Vite apps hosted on GitHub Pages—it's common to store blog posts as raw `.md` (Markdown) files in an `assets/` directory and fetch them dynamically at runtime.
