@@ -1,6 +1,6 @@
 [
   {
-    "slug": "hello-world",
+    "slug": "2025-11-21-hello-world",
     "title": "Hello world — My first post",
     "date": "2025-11-21",
     "excerpt": "Quick intro to the blog...",
@@ -9,11 +9,11 @@
     "category": "tech"
   },
   {
-    "slug": "another-post",
+    "slug": "2026-09-05-post",
     "title": "Another interesting post",
     "date": "2025-10-01",
-    "excerpt": "A short excerpt about this post...",
-    "banner": "/posts/images/blog-2.jpg",
+    "excerpt": "Learning more about how github pages interpert frontmatter which causes processing of frontmatter md files",
+    "banner": "/assets/images/blog-2.jpg",
     "featured": false,
     "category": "design"
   }
