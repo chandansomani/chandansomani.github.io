@@ -205,12 +205,6 @@ export const TimelineItem: React.FC<TimelineItemProps> = ({
           ))}
       </li>
 
-      <style>{`
-        .img-hover-container:hover .hover-overlay {
-          opacity: 1 !important;
-        }
-      `}</style>
-
       {/* Flag-Based Modal Rendering */}
       {isModalOpen && item.image && (
         useReactViewer ? (

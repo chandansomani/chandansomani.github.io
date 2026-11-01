@@ -2231,3 +2231,8 @@ textarea.form-input::-webkit-resizer {
 .react-viewer-mask {
   background-color: rgba(0, 0, 0, 0.85) !important; /* Adjust opacity react-viewer backdrop */
 }
+
+
+.img-hover-container:hover .hover-overlay {
+  opacity: 1 !important;
+}
